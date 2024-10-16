@@ -1,7 +1,5 @@
 package app;
 
-import java.util.Random;
-
 public class test {
     public static void main(String[] args) {
         int[][] square = {
@@ -15,12 +13,13 @@ public class test {
         int oddSum = 0;
         long evenMul = 1L;
         long oddMul = 1L;
-        int sumOfFirstLine = 0;
-        int temp = 0;
+        int sumOfLine = 0;
         int sumOfRow = 0;
-        int tempRow = 0;
         int diag = 0;
-        boolean previousResult = true;
+        int diag2 = 0;
+        String noMagic = "Матриця не є магічним квадратом.";
+        String yesMagic = "Матриця є магічним квадратом.";
+
 
         System.out.println("Матриця 4x4:");
         for (int i = 0; i < square.length; i++) {
@@ -41,74 +40,25 @@ public class test {
                 "\nДобуток елементів у парних стовпцях (стовпець 0, 2): " + evenMul +
                 "\nДобуток елементів у непарних стовпцях (стовпець 1, 3): " + oddMul+"\n");
 
-
         for (int i = 0; i < square.length; i++) {
-            sumOfFirstLine += square[0][i];
-        }
-        for (int j = 1; j < square.length; j++) {
-            for (int i = 0; i < square.length; i++) {
-                temp += square[j][i];
+            for (int j = 0; j < square.length; j++) {
+                sumOfLine += square[j][i];
+                sumOfRow += square[i][0];
+                if (i == j) {
+                    diag += square[i][j];
+                }
             }
-            if (sumOfFirstLine == temp){
-                sumOfFirstLine = temp;
-                temp = 0;
-            } else {
-                previousResult = false;
+            if (sumOfLine != sumOfRow){
                 break;
             }
+            diag2 += square[i][square.length - i - 1];
         }
-        if (!previousResult){
-            System.out.println("Матриця не є магічним квадратом.");
-            System.exit(0);
+        if (diag == diag2 && sumOfRow / square.length == diag2) {
+            System.out.printf("Сума стовпців = " + sumOfRow + "\nСума стовпців рядків = " + sumOfLine +
+                            "\nСума діагоналі = " + diag + "\nСума зворотньої діагоналі = " + diag2 +
+                            "\n" + yesMagic);
         }else {
-            for (int i = 0; i < square.length; i++) {
-                sumOfRow += square[i][0];
-            }
-            for (int j = 1; j < square.length; j++) {
-                for (int i = 0; i < square.length; i++) {
-                    tempRow += square[i][j];
-                }
-                if (sumOfRow == tempRow){
-                    sumOfRow = tempRow;
-                    tempRow = 0;
-                } else {
-                    previousResult = false;
-                    break;
-                }
-            }
-        }
-        if (!previousResult){
-            System.out.println("Матриця не є магічним квадратом.");
-            System.exit(0);
-        }else {
-            for (int i = 0; i < square.length; i++) {
-                for (int j = 0; j < square.length; j++) {
-                    if(i == j){
-                        diag += square[i][j];
-                    }
-                }
-            }
-            if (diag != sumOfRow){
-                previousResult = false;
-            }
-        }
-        if (!previousResult){
-            System.out.println("Матриця не є магічним квадратом.");
-            System.exit(0);
-        }else {
-            int diag2 = 0;
-            for (int i = 0; i < square.length; i++) {
-                diag2 += square[i][square.length - i - 1];
-            }
-            if (sumOfRow != diag2){
-                previousResult = false;
-                System.out.println("Матриця не є магічним квадратом.");
-                System.exit(0);
-            }else {
-                System.out.printf("Сума стовпців = " + sumOfRow + "\nСума стовпців рядків = " + sumOfFirstLine +
-                        "\nСума діагоналі = " + diag + "\nСума зворотньої діагоналі = " + diag2 +
-                        "\nМатриця є магічним квадратом.");
-            }
+            System.out.println(noMagic);
         }
     }
 }
