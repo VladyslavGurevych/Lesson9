@@ -3,10 +3,10 @@ package app;
 public class test {
     public static void main(String[] args) {
         int[][] square = {
-            {16, 16, 16, 16},
-            {16, 16, 16, 16},
-            {16, 16, 16, 16},
-            {16, 16, 16, 16},
+                {16, 16, 16, 16},
+                {16, 16, 16, 16},
+                {16, 16, 16, 16},
+                {16, 16, 16, 16},
         };
 
         int evenSum = 0;
@@ -38,26 +38,26 @@ public class test {
         System.out.printf("\nСума елементів у парних рядках (рядок 0, 2): " + evenSum +
                 "\nСума елементів у непарних рядках (рядок 1, 3): " + oddSum +
                 "\nДобуток елементів у парних стовпцях (стовпець 0, 2): " + evenMul +
-                "\nДобуток елементів у непарних стовпцях (стовпець 1, 3): " + oddMul+"\n");
+                "\nДобуток елементів у непарних стовпцях (стовпець 1, 3): " + oddMul + "\n");
 
         for (int i = 0; i < square.length; i++) {
             for (int j = 0; j < square.length; j++) {
                 sumOfLine += square[j][i];
-                sumOfRow += square[i][0];
+                sumOfRow += square[i][j];
                 if (i == j) {
                     diag += square[i][j];
                 }
             }
-            if (sumOfLine != sumOfRow){
+            if (sumOfLine != sumOfRow) {
                 break;
             }
             diag2 += square[i][square.length - i - 1];
         }
         if (diag == diag2 && sumOfRow / square.length == diag2) {
             System.out.printf("Сума стовпців = " + sumOfRow + "\nСума стовпців рядків = " + sumOfLine +
-                            "\nСума діагоналі = " + diag + "\nСума зворотньої діагоналі = " + diag2 +
-                            "\n" + yesMagic);
-        }else {
+                    "\nСума діагоналі = " + diag + "\nСума зворотньої діагоналі = " + diag2 +
+                    "\n" + yesMagic);
+        } else {
             System.out.println(noMagic);
         }
     }
